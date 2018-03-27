@@ -42,6 +42,13 @@ function newGame(){
     }
 };
 
+let showCard = function showCard(evt){
+   let randomCard = evt.target;
+   if (randomCard.tagName === 'LI'){
+        randomCard.classList.toggle('open')
+        randomCard.classList.toggle('show')
+        randomCard.classList.toggle('disabled')
+    }
 
 /*
  * set up the event listener for a card. If a card is clicked:
