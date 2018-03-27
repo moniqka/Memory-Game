@@ -4,7 +4,7 @@ const cardDeck = document.querySelector('.deck');
  */
 let card = document.getElementsByClassName('card');
 let cards = Array.from(card);
-
+let openedCards = [];
 /*
  * Display the cards on the page
  *   - shuffle the list of cards using the provided "shuffle" method below
@@ -48,6 +48,7 @@ let showCard = function showCard(evt){
         randomCard.classList.toggle('open')
         randomCard.classList.toggle('show')
         randomCard.classList.toggle('disabled')
+        openedCards.push(randomCard);
     }
 
 /*
