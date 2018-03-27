@@ -53,3 +53,12 @@ function newGame(){
  *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
+
+/*
+ * Event Listeners
+ */
+// deck listener delegated in showCard function to cards 
+cardDeck.addEventListener('click', showCard);
+// restart button
+const restart = document.querySelector('.restart');
+restart.addEventListener('click', newGame);
