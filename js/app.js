@@ -25,7 +25,22 @@ function shuffle(array) {
     }
 
     return array;
-}
+};
+
+//  function to start game
+document.body.onload = newGame();
+
+function newGame(){
+    // shuffle
+    cards = shuffle(cards);
+    
+    // loop to remove all exisiting classes from each card
+    for (let card of cards) {
+       card.classList.remove('show', 'open', 'match', 'disabled');
+    // add each card's HTML to the page   
+       cardDeck.appendChild(card);
+    }
+};
 
 
 /*
