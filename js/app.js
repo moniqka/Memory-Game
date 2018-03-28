@@ -15,6 +15,11 @@ let counter = document.querySelector('.moves');
 const scorePanel = document.querySelector('.stars');
 let stars = scorePanel.querySelectorAll('li');
 
+let clock = document.querySelector('#clock');
+let seconds = 0;
+let minutes = 0;
+let time = 0;
+
 /*
  * game logic
 */
@@ -44,9 +49,14 @@ function newGame(){
    moves = 0;
    counter.innerHTML = moves; 
    // reset stars
-    for (star of stars) {
-       star.classList.remove('hidden');
-    }
+   for (star of stars) {
+      star.classList.remove('hidden');
+   }
+   //reset timer
+   stopTimer();
+   seconds = 0;
+   minutes = 0;
+   clock.innerHTML = "0:00";
    // loop to remove all exisiting classes from each card
    for (let card of cards) {
        card.classList.remove('show', 'open', 'match', 'disabled');
@@ -73,6 +83,7 @@ let showCard = function showCard(evt){
        moves++;
        counter.innerHTML = moves;
        hideStars();
+       if (moves === 1) timer();
 
       // check whether the cards match or not 
       if (openedCards[0].isEqualNode(openedCards[1])){ //from https://www.w3schools.com/jsref/met_node_isequalnode.asp
@@ -110,6 +121,24 @@ function hideStars() {
     } else if (moves === 30) {
       scorePanel.firstElementChild.classList.add('hidden');
     }
+};
+
+function timer() {
+   time = setInterval(function() {
+     seconds++;
+      if (seconds < 10) {
+        seconds = '0' + seconds;
+      }
+      clock.innerHTML = minutes + ":" + seconds;
+      if (seconds === 60) {
+        minutes++;
+        seconds = 0;
+      }
+  }, 1000);
+};      
+
+function stopTimer() {
+   clearInterval(time);
 };
 
 /*
