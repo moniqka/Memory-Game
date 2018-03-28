@@ -1,20 +1,27 @@
-const cardDeck = document.querySelector('.deck');
 /*
- * Create a list that holds all of your cards
- */
+ * set up all variables
+*/
+
+const cardDeck = document.querySelector('.deck');
+
+ // list that holds all of your cards
 let card = document.getElementsByClassName('card');
 let cards = Array.from(card);
 let openedCards = [];
-/*
- * Display the cards on the page
- *   - shuffle the list of cards using the provided "shuffle" method below
- *   - loop through each card and create its HTML
- *   - add each card's HTML to the page
- */
 
-// Shuffle function from http://stackoverflow.com/a/2450976
+let moves = 0;
+let counter = document.querySelector('.moves');
+
+const scorePanel = document.querySelector('.stars');
+let stars = scorePanel.querySelectorAll('li');
+
+/*
+ * game logic
+*/
+
+// shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
-    var currentIndex = array.length, temporaryValue, randomIndex;
+    let currentIndex = array.length, temporaryValue, randomIndex;
 
     while (currentIndex !== 0) {
         randomIndex = Math.floor(Math.random() * currentIndex);
@@ -27,21 +34,28 @@ function shuffle(array) {
     return array;
 };
 
-//  function to start game
+// function to start game
 document.body.onload = newGame();
 
 function newGame(){
-    // shuffle
-    cards = shuffle(cards);
-    
-    // loop to remove all exisiting classes from each card
-    for (let card of cards) {
+   // shuffle
+   cards = shuffle(cards);
+   // reset moves
+   moves = 0;
+   counter.innerHTML = moves; 
+   // reset stars
+    for (star of stars) {
+       star.classList.remove('hidden');
+    }
+   // loop to remove all exisiting classes from each card
+   for (let card of cards) {
        card.classList.remove('show', 'open', 'match', 'disabled');
-    // add each card's HTML to the page   
+       // append the shuffled cards back to the DOM   
        cardDeck.appendChild(card);
     }
 };
 
+// function that toggle classes to show cards
 let showCard = function showCard(evt){
    let randomCard = evt.target;
    if (randomCard.tagName === 'LI'){
@@ -54,50 +68,54 @@ let showCard = function showCard(evt){
       evt.stopPropagation();
     }
 
-      //check whether 2 cards match or not
-    if(openedCards.length === 2){
-       
-      if(openedCards[0].isEqualNode(openedCards[1])){ //from https://www.w3schools.com/jsref/met_node_isequalnode.asp
-          matched();
+    // for 2 opened cards
+    if (openedCards.length === 2){
+       moves++;
+       counter.innerHTML = moves;
+       hideStars();
+
+      // check whether the cards match or not 
+      if (openedCards[0].isEqualNode(openedCards[1])){ //from https://www.w3schools.com/jsref/met_node_isequalnode.asp
+         matched();
       } else {
-          unmatched();
+         unmatched();
       }
-    };
+    }
 
-  //if cards match
+  // if cards match
   function matched() {
-    openedCards[0].classList.toggle('match');
-    openedCards[1].classList.toggle('match');
-    openedCards[0].classList.remove('show', 'open');
-    openedCards[1].classList.remove('show', 'open');
-    openedCards = [];
-  };
+     openedCards[0].classList.toggle('match');
+     openedCards[1].classList.toggle('match');
+     openedCards[0].classList.remove('show', 'open');
+     openedCards[1].classList.remove('show', 'open');
+     openedCards = [];
+  }
 
-  //if cards don't match
+  // if cards don't match
   function unmatched() {
-    //allows to see 2nd card before is closed
-    setTimeout(function() {
-      openedCards[0].classList.remove('show', 'open', 'disabled');
-      openedCards[1].classList.remove('show', 'open', 'disabled');
-      openedCards = [];
-    }, 1000);
-  };
+     // allows to see 2nd card before it's closed
+     setTimeout(function() {
+       openedCards[0].classList.remove('show', 'open', 'disabled');
+       openedCards[1].classList.remove('show', 'open', 'disabled');
+       openedCards = [];
+     }, 1000);
+  }
 };
 
-/*
- * set up the event listener for a card. If a card is clicked:
- *  - display the card's symbol (put this functionality in another function that you call from this one)
- *  - add the card to a *list* of "open" cards (put this functionality in another function that you call from this one)
- *  - if the list already has another card, check to see if the two cards match
- *    + if the cards do match, lock the cards in the open position (put this functionality in another function that you call from this one)
- *    + if the cards do not match, remove the cards from the list and hide the card's symbol (put this functionality in another function that you call from this one)
- *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
- *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
- */
+function hideStars() {
+    if (moves === 11) {
+      scorePanel.lastElementChild.classList.add('hidden');
+    } else if (moves === 21) {
+      scorePanel.lastElementChild.previousElementSibling.classList.add('hidden');
+    } else if (moves === 30) {
+      scorePanel.firstElementChild.classList.add('hidden');
+    }
+};
 
 /*
  * Event Listeners
  */
+
 // deck listener delegated in showCard function to cards 
 cardDeck.addEventListener('click', showCard);
 // restart button
