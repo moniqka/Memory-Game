@@ -51,6 +51,36 @@ let showCard = function showCard(evt){
         openedCards.push(randomCard);
     }
 
+      //check whether 2 cards match or not
+    if(openedCards.length === 2){
+       
+      if(openedCards[0].isEqualNode(openedCards[1])){ //from https://www.w3schools.com/jsref/met_node_isequalnode.asp
+          matched();
+      } else {
+          unmatched();
+      }
+    };
+
+  //if cards match
+  function matched() {
+    openedCards[0].classList.toggle('match');
+    openedCards[1].classList.toggle('match');
+    openedCards[0].classList.remove('show', 'open');
+    openedCards[1].classList.remove('show', 'open');
+    openedCards = [];
+  };
+
+  //if cards don't match
+  function unmatched() {
+    //allows to see 2nd card before is closed
+    setTimeout(function() {
+      openedCards[0].classList.remove('show', 'open', 'disabled');
+      openedCards[1].classList.remove('show', 'open', 'disabled');
+      openedCards = [];
+    }, 1000);
+  };
+};
+
 /*
  * set up the event listener for a card. If a card is clicked:
  *  - display the card's symbol (put this functionality in another function that you call from this one)
