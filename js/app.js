@@ -45,10 +45,13 @@ function newGame(){
 let showCard = function showCard(evt){
    let randomCard = evt.target;
    if (randomCard.tagName === 'LI'){
+      if (openedCards.length < 2) { //limit number of opened cards
         randomCard.classList.toggle('open')
         randomCard.classList.toggle('show')
         randomCard.classList.toggle('disabled')
         openedCards.push(randomCard);
+      } 
+      evt.stopPropagation();
     }
 
       //check whether 2 cards match or not
