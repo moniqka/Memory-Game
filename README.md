@@ -8,14 +8,14 @@ All the cards are on the deck laying face down. Click on the cards to flip it an
 
 ## Features
 
-##### Star rating - starts with 3 stars. The more moves player makes, the less stars will receive.
+## Star rating - starts with 3 stars. The more moves player makes, the less stars will receive.
 - less than 16 moves - 3 stars
 - less than 26 moves - 2 stars
 - less than 35 moves - 1 star
 - 35 moves or more - 0 stars
 
-##### Move counter - every two cards opened counts as a one move.
+## Move counter - every two cards opened counts as a one move.
 
-##### Timer - starts after the first move and finishes when game ends.
+## Timer - starts after the first move and finishes when game ends.
 
-##### End game modal - once the player matches all the cards, a pop up window will open displaing the final number of stars, moves and how much time the game took. There is a posibility to play again or just close the window.
+## End game modal - once the player matches all the cards, a pop up window will open displaing the final number of stars, moves and how much time the game took. There is a posibility to play again or just close the window.
