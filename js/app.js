@@ -1,6 +1,4 @@
-/*
- * set up variables
- */
+/** set up variables **/
 
 const cardDeck = document.querySelector('.deck');
 const matchedCards = cardDeck.getElementsByClassName("match");
@@ -23,11 +21,9 @@ let time = 0;
 
 let modal = document.getElementById('modal');
 const close = document.querySelector("#close");
-const restartBtn =document.querySelector('#restartBtn'); 
+const restartBtn =document.querySelector('#restart-btn'); 
 
-/*
- * Game logic
- */
+/** GAME **/
 
 // shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
@@ -94,7 +90,7 @@ let showCard = function showCard(evt){
           cardDeck.addEventListener('click', showCard);
         }, 1000);
       
-      if (moves === 1) timer();
+      if (moves === 1) timer(); //start count time
       
       if(openedCards[0].isEqualNode(openedCards[1])){ //from https://www.w3schools.com/jsref/met_node_isequalnode.asp
           matched();
@@ -126,8 +122,8 @@ let showCard = function showCard(evt){
 };
 
 function hideStars() {
-    if (moves === 16){
-      scorePanel.lastElementChild.classList.add('hidden');
+   if (moves === 16){
+     scorePanel.lastElementChild.classList.add('hidden');
     } else if (moves === 26) {
       scorePanel.lastElementChild.previousElementSibling.classList.add('hidden');
     } else if (moves === 35) {
@@ -136,8 +132,7 @@ function hideStars() {
 };
 
 function timer() {
-  time = setInterval(function() {
- 
+   time = setInterval(function() {
      seconds++;
       if (seconds < 10) {
         seconds = '0' + seconds;
@@ -151,21 +146,23 @@ function timer() {
 };      
 
 function stopTimer() {
-  clearInterval(time);
+   clearInterval(time);
 };
 
 function endGame() {
-      stopTimer();
-  finalTime = clock.innerHTML;
-      modal.style.display = 'block';   
-  // declare star rating variable
-let finalStars = document.querySelector(".stars").innerHTML;
-      closeModal();
-  //showing move, rating, time on modal
-        document.getElementById('finalStars').innerHTML = finalStars;
-        document.getElementById('finalTime').innerHTML = finalTime;
-        document.getElementById('finalMoves').innerHTML = moves;
-playAgain();
+   stopTimer();
+   finalTime = clock.innerHTML;
+   // set modal visible
+   modal.style.display = 'block';   
+   // declare star rating variable
+   let finalStars = document.querySelector(".stars").innerHTML;
+   //showing move, rating, time on modal
+   document.getElementById('finalStars').innerHTML = finalStars;
+   document.getElementById('finalTime').innerHTML = finalTime;
+   document.getElementById('finalMoves').innerHTML = moves;
+   // function buttons
+   playAgain();
+   closeModal();
 };
 
 function closeModal(e){
@@ -175,16 +172,14 @@ function closeModal(e){
 };
 
 function playAgain(e){
-  restartBtn.addEventListener("click", function(){
-    modal.style.display = "none";
-    newGame();
+   restartBtn.addEventListener("click", function(){
+     modal.style.display = "none";
+     newGame();
   });
-  
 };
 
-/*
- * Event Listeners
- */
+/** Event Listeners **/
+
 window.addEventListener('load', newGame);
 // deck listener delegated in showCard function to cards 
 cardDeck.addEventListener('click', showCard);

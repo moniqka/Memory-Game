@@ -1,3 +1,5 @@
+/** general styles **/
+
 html {
     box-sizing: border-box;
 }
@@ -18,8 +20,9 @@ body {
 
 body {
     background: #ffffff url(https://cdn.pixabay.com/photo/2016/08/06/14/11/camel-1574449_960_720.png); /* Background from Pixabay (iamsushant) */
-   background-size: 100%;
+    background-size: 100%;
     font-family: 'Coda', cursive;
+    color: #2d3c49;
 }
 
 .container {
@@ -35,9 +38,7 @@ h1 {
     color: #45594B;
 }
 
-/*
- * Styles for the deck of cards
- */
+/** styles for the deck of cards **/
 
 .deck {
     width: 660px;
@@ -87,9 +88,7 @@ h1 {
     opacity: 0.9;
 }
 
-/*
- * Styles for the Score Panel
- */
+/** styles for the score panel **/
 
 .score-panel {
     text-align: left;
@@ -108,58 +107,87 @@ h1 {
     list-style: none;
     display: inline-block;
 }
+
 .hidden {
-  opacity: 0.2;
+    opacity: 0.2;
 }
+
 .score-panel .restart {
     float: right;
     cursor: pointer;
 }
+
 #clock {
-  display: inline-block;
-  padding-left: 5em;
+    display: inline-block;
+    padding-left: 5em;
 }
+
+/** the end game modal styles **/
+
 #modal {
-  display: none;
-  position: fixed;
-  z-index: 1;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  overflow: auto;
-background-color: rgba(0, 0, 0, 0.5); /* Black w/ opacity */
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5); /* Black w/ opacity */
 }
+
 .modalContent {
-  position: relative;
-  background-color: #E3DDB8;
-  border-radius: 10px;
-  margin: auto;
-  margin-top: 5vw;
-  padding-top: 2vw;
-  padding-bottom: 3vw;
-  width: 60%;
-  text-align: center;
+    position: relative;
+    background-color: #E3DDB8;
+    border-radius: 10px;
+    margin: auto;
+    margin-top: 5vw;
+    padding-top: 2vw;
+    padding-bottom: 3vw;
+    width: 60%;
+    text-align: center;
 }
+
 #restartBtn {
-  margin-top: 1vw;
-  padding: 0.5em;
+    margin-top: 1vw;
+    padding: 0.5em;
 }
+
 .modalContent #close {
-  position: absolute;
-  top: 1em;
-  right: 1em;
-  font-family: 'Frijole', cursive;
+    position: absolute;
+    top: 1em;
+    right: 1em;
+    font-family: 'Frijole', cursive;
 }
+
 #finalStars li {
-  display: inline-block;
+    display: inline-block;
 }
+
 button {
-  cursor: pointer;
-  border-radius: 5px;
-  background-color: #45594B;
-  color: #EAE5D0;
+    cursor: pointer;
+    border-radius: 5px;
+    background-color: #45594B;
+    color: #EAE5D0;
 }
+
+/** footer styles **/
+
+footer {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+#p {
+    font-weight: 100;
+    margin-top: -1em;
+}
+
+/** RESPONSIVE **/
+
 @media screen and (max-width: 700px) {
     .score-panel {
         max-width: 100%;
@@ -177,39 +205,26 @@ button {
     #modal {
         font-size: 0.8em;
     }
-    .modalContent{
-      margin-top: 7vw;
+    .modalContent h1 {
+        padding-top: 2vw;
+        font-size: 4vw;
     }
-  .modalContent h1 {
-  padding-top: 2vw;
-    font-size: 4vw;
-  }
+    footer {
+        font-size: 0.8em;
+    }
 }
 
 @media screen and (max-width: 450px) {
-  .score-panel {
-        max-width: 80%;
+    .modalContent {
+        width: 70%;
+        padding: 6vw;
     }
-    #clock {
-  display: inline-block;
-  padding-left: 3em;
-}
-  .modalContent {
-  width: 70%;
-  padding: 6vw;
-  margin-top: 10vw;
-}
-  .modalContent h1 {
-  padding-top: 2vw;
-  }
-  button {
-    font-size: 0.8em;
-  }
+    .modalContent h1 {
+        padding-top: 2vw;
+    }
 }
 
-/*
-* ANIMATIONS
-*/
+/** ANIMATIONS **/
 
 .jello-horizontal {
   -webkit-animation: jello-horizontal 0.9s both;
