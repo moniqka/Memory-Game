@@ -19,7 +19,7 @@ body {
 }
 
 body {
-    background: #ffffff url(https://cdn.pixabay.com/photo/2016/08/06/14/11/camel-1574449_960_720.png); /* Background from Pixabay (iamsushant) */
+    background: #ffffff url('../img/camel.png'); /* Background from Pixabay (iamsushant) */
     background-size: 100%;
     font-family: 'Coda', cursive;
     color: #2d3c49;
