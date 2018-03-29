@@ -1,10 +1,11 @@
 /*
- * set up all variables
-*/
+ * set up variables
+ */
 
 const cardDeck = document.querySelector('.deck');
+const matchedCards = cardDeck.getElementsByClassName("match");
 
- // list that holds all of your cards
+ // list that holds all of cards
 let card = document.getElementsByClassName('card');
 let cards = Array.from(card);
 let openedCards = [];
@@ -12,7 +13,7 @@ let openedCards = [];
 let moves = 0;
 let counter = document.querySelector('.moves');
 
-const scorePanel = document.querySelector('.stars');
+let scorePanel = document.querySelector('.stars');
 let stars = scorePanel.querySelectorAll('li');
 
 let clock = document.querySelector('#clock');
@@ -20,13 +21,17 @@ let seconds = 0;
 let minutes = 0;
 let time = 0;
 
+let modal = document.getElementById('modal');
+const close = document.querySelector("#close");
+const restartBtn =document.querySelector('#restartBtn'); 
+
 /*
- * game logic
-*/
+ * Game logic
+ */
 
 // shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
-    let currentIndex = array.length, temporaryValue, randomIndex;
+    var currentIndex = array.length, temporaryValue, randomIndex;
 
     while (currentIndex !== 0) {
         randomIndex = Math.floor(Math.random() * currentIndex);
@@ -39,30 +44,30 @@ function shuffle(array) {
     return array;
 };
 
-// function to start game
+//  function to start game
 document.body.onload = newGame();
 
 function newGame(){
-   // shuffle
-   cards = shuffle(cards);
-   // reset moves
-   moves = 0;
-   counter.innerHTML = moves; 
-   // reset stars
-   for (star of stars) {
-      star.classList.remove('hidden');
-   }
-   //reset timer
-   stopTimer();
-   seconds = 0;
-   minutes = 0;
-   clock.innerHTML = "0:00";
-   // loop to remove all exisiting classes from each card
-   for (let card of cards) {
-       card.classList.remove('show', 'open', 'match', 'disabled');
-       // append the shuffled cards back to the DOM   
+    // shuffle
+    cards = shuffle(cards);
+    // reset moves
+    moves = 0;
+    counter.innerHTML = moves;
+    //reset timer
+    stopTimer();
+    seconds = 0;
+    minutes = 0;
+    clock.innerHTML = "0:00";
+    // loop to remove all exisiting classes from each card
+    for (let card of cards) {
+       card.classList.remove('show', 'open', 'match', 'disabled','jello-horizontal');
+    // append the shuffled cards back to the DOM   
        cardDeck.appendChild(card);
     }
+    //reset stars
+    for (star of stars) {
+       star.classList.remove('hidden');
+  }
 };
 
 // function that toggle classes to show cards
@@ -77,54 +82,62 @@ let showCard = function showCard(evt){
       } 
       evt.stopPropagation();
     }
-
-    // for 2 opened cards
+  
+    //check whether 2 cards match or not
     if (openedCards.length === 2){
        moves++;
        counter.innerHTML = moves;
-       hideStars();
-       if (moves === 1) timer();
-
-      // check whether the cards match or not 
-      if (openedCards[0].isEqualNode(openedCards[1])){ //from https://www.w3schools.com/jsref/met_node_isequalnode.asp
-         matched();
+        hideStars();
+      // prevents from double click and count moves
+        cardDeck.removeEventListener('click', showCard);
+        setTimeout(function () {
+          cardDeck.addEventListener('click', showCard);
+        }, 1000);
+      
+      if (moves === 1) timer();
+      
+      if(openedCards[0].isEqualNode(openedCards[1])){ //from https://www.w3schools.com/jsref/met_node_isequalnode.asp
+          matched();
+        if (matchedCards.length == 16) {  
+        endGame();}
       } else {
-         unmatched();
+          unmatched();
       }
-    }
+    };
 
-  // if cards match
+  //if cards match
   function matched() {
-     openedCards[0].classList.toggle('match');
-     openedCards[1].classList.toggle('match');
-     openedCards[0].classList.remove('show', 'open');
-     openedCards[1].classList.remove('show', 'open');
-     openedCards = [];
-  }
+    openedCards[0].classList.add('match','jello-horizontal');
+    openedCards[1].classList.add('match','jello-horizontal');
+    openedCards[0].classList.remove('show', 'open');
+    openedCards[1].classList.remove('show', 'open');
+    openedCards = [];
+  };
 
-  // if cards don't match
+  //if cards don't match
   function unmatched() {
-     // allows to see 2nd card before it's closed
-     setTimeout(function() {
-       openedCards[0].classList.remove('show', 'open', 'disabled');
-       openedCards[1].classList.remove('show', 'open', 'disabled');
-       openedCards = [];
-     }, 1000);
-  }
+    //allows to see 2nd card before is closed
+    setTimeout(function() {
+      openedCards[0].classList.remove('show', 'open', 'disabled');
+      openedCards[1].classList.remove('show', 'open', 'disabled');
+      openedCards = [];
+    }, 1000);
+  };
 };
 
 function hideStars() {
-    if (moves === 11) {
+    if (moves === 16){
       scorePanel.lastElementChild.classList.add('hidden');
-    } else if (moves === 21) {
+    } else if (moves === 26) {
       scorePanel.lastElementChild.previousElementSibling.classList.add('hidden');
-    } else if (moves === 30) {
+    } else if (moves === 35) {
       scorePanel.firstElementChild.classList.add('hidden');
     }
 };
 
 function timer() {
-   time = setInterval(function() {
+  time = setInterval(function() {
+ 
      seconds++;
       if (seconds < 10) {
         seconds = '0' + seconds;
@@ -138,13 +151,41 @@ function timer() {
 };      
 
 function stopTimer() {
-   clearInterval(time);
+  clearInterval(time);
+};
+
+function endGame() {
+      stopTimer();
+  finalTime = clock.innerHTML;
+      modal.style.display = 'block';   
+  // declare star rating variable
+let finalStars = document.querySelector(".stars").innerHTML;
+      closeModal();
+  //showing move, rating, time on modal
+        document.getElementById('finalStars').innerHTML = finalStars;
+        document.getElementById('finalTime').innerHTML = finalTime;
+        document.getElementById('finalMoves').innerHTML = moves;
+playAgain();
+};
+
+function closeModal(e){
+    close.addEventListener("click", function(){
+        modal.style.display = "none";
+    });
+};
+
+function playAgain(e){
+  restartBtn.addEventListener("click", function(){
+    modal.style.display = "none";
+    newGame();
+  });
+  
 };
 
 /*
  * Event Listeners
  */
-
+window.addEventListener('load', newGame);
 // deck listener delegated in showCard function to cards 
 cardDeck.addEventListener('click', showCard);
 // restart button
