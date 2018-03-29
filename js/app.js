@@ -157,9 +157,9 @@ function endGame() {
    // declare star rating variable
    let finalStars = document.querySelector(".stars").innerHTML;
    //showing move, rating, time on modal
-   document.getElementById('finalStars').innerHTML = finalStars;
-   document.getElementById('finalTime').innerHTML = finalTime;
-   document.getElementById('finalMoves').innerHTML = moves;
+   document.getElementById('final-stars').innerHTML = finalStars;
+   document.getElementById('final-time').innerHTML = finalTime;
+   document.getElementById('final-moves').innerHTML = moves;
    // function buttons
    playAgain();
    closeModal();

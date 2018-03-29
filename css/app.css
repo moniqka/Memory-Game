@@ -136,7 +136,7 @@ h1 {
     background-color: rgba(0, 0, 0, 0.5); /* Black w/ opacity */
 }
 
-.modalContent {
+.modal-content {
     position: relative;
     background-color: #E3DDB8;
     border-radius: 10px;
@@ -148,19 +148,19 @@ h1 {
     text-align: center;
 }
 
-#restartBtn {
+#restart-btn {
     margin-top: 1vw;
     padding: 0.5em;
 }
 
-.modalContent #close {
+.modal-content #close {
     position: absolute;
     top: 1em;
     right: 1em;
     font-family: 'Frijole', cursive;
 }
 
-#finalStars li {
+#final-stars li {
     display: inline-block;
 }
 
@@ -205,7 +205,7 @@ footer {
     #modal {
         font-size: 0.8em;
     }
-    .modalContent h1 {
+    .modal-content h1 {
         padding-top: 2vw;
         font-size: 4vw;
     }
@@ -215,11 +215,11 @@ footer {
 }
 
 @media screen and (max-width: 450px) {
-    .modalContent {
+    .modal-content {
         width: 70%;
         padding: 6vw;
     }
-    .modalContent h1 {
+    .modal-content h1 {
         padding-top: 2vw;
     }
 }
