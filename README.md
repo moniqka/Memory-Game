@@ -1,20 +1,21 @@
-# Memory Game Project
+# Memory Game 
 
-## Table of Contents
+This is a simple Memory Game. The project was made for Udacity Front-End program as a part of Google Developer Nanodegree Scholarship.
 
-* [Instructions](#instructions)
-* [Contributing](#contributing)
+## Instruction
 
-## Instructions
+All the cards are on the deck laying face down. Click on the cards to flip it and see the icon. Turn over a second card in order to find its match. Game ends once all the cards have been matched.
 
-The starter project has some HTML and CSS styling to display a static version of the Memory Game project. You'll need to convert this project from a static project to an interactive one. This will require modifying the HTML and CSS files, but primarily the JavaScript file.
+## Features
 
-To get started, open `js/app.js` and start building out the app's functionality
+##### Star rating - starts with 3 stars. The more moves player makes, the less stars will receive.
+- less than 16 moves - 3 stars
+- less than 26 moves - 2 stars
+- less than 35 moves - 1 star
+- 35 moves or more - 0 stars
 
-For specific, detailed instructions, look at the project instructions in the [Udacity Classroom](https://classroom.udacity.com/me).
+##### Move counter - every two cards opened counts as a one move.
 
-## Contributing
+##### Timer - starts after the first move and finishes when game ends.
 
-This repository is the starter code for _all_ Udacity students. Therefore, we most likely will not accept pull requests.
-
-For details, check out [CONTRIBUTING.md](CONTRIBUTING.md).
+##### End game modal - once the player matches all the cards, a pop up window will open displaing the final number of stars, moves and how much time the game took. There is a posibility to play again or just close the window.
