@@ -54,6 +54,8 @@ function newGame(){
     seconds = 0;
     minutes = 0;
     clock.innerHTML = "0:00";
+    // resets list of opened cards
+    openedCards = [];
     // loop to remove all exisiting classes from each card
     for (let card of cards) {
        card.classList.remove('show', 'open', 'match', 'disabled','jello-horizontal');
