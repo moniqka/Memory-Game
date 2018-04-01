@@ -1,4 +1,3 @@
-
 /** set up variables **/
 
 const cardDeck = document.querySelector('.deck');
@@ -10,6 +9,7 @@ let cards = Array.from(card);
 let openedCards = [];
 
 let moves = 0;
+let pairs = 0;
 let counter = document.querySelector('.moves');
 
 let scorePanel = document.querySelector('.stars');
@@ -49,6 +49,7 @@ function newGame(){
     cards = shuffle(cards);
     // reset moves
     moves = 0;
+    pairs = 0;
     counter.innerHTML = moves;
     //reset timer
     stopTimer();
@@ -80,12 +81,16 @@ let showCard = function showCard(evt){
         openedCards.push(randomCard);
       } 
       evt.stopPropagation();
+      //start count time
+      moves++
+      if (moves === 1) timer();
     }
   
     //check whether 2 cards match or not
     if (openedCards.length === 2){
-       moves++;
-       counter.innerHTML = moves;
+       //start move counter
+        pairs++;
+        counter.innerHTML = pairs;
         hideStars();
       // prevents from double click and count moves
         cardDeck.removeEventListener('click', showCard);
@@ -93,7 +98,6 @@ let showCard = function showCard(evt){
           cardDeck.addEventListener('click', showCard);
         }, 1000);
       
-      if (moves === 1) timer(); //start count time
       
       if(openedCards[0].isEqualNode(openedCards[1])){ //from https://www.w3schools.com/jsref/met_node_isequalnode.asp
           matched();
@@ -125,13 +129,11 @@ let showCard = function showCard(evt){
 };
 
 function hideStars() {
-   if (moves === 16){
+   if (pairs === 16) {
      scorePanel.lastElementChild.classList.add('hidden');
-    } else if (moves === 26) {
+    } else if (pairs === 26) {
       scorePanel.lastElementChild.previousElementSibling.classList.add('hidden');
-    } else if (moves === 35) {
-      scorePanel.firstElementChild.classList.add('hidden');
-    }
+    } 
 };
 
 function timer() {
@@ -162,7 +164,7 @@ function endGame() {
    //showing move, rating, time on modal
    document.getElementById('final-stars').innerHTML = finalStars;
    document.getElementById('final-time').innerHTML = finalTime;
-   document.getElementById('final-moves').innerHTML = moves;
+   document.getElementById('final-moves').innerHTML = pairs;
    // function buttons
    playAgain();
    closeModal();
