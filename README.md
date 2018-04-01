@@ -12,8 +12,7 @@ All the cards are on the deck laying face down. Click on the cards to flip it an
 Starts with 3 stars. The more moves player makes, the less stars will receive.
 - less than 16 moves - 3 stars
 - less than 26 moves - 2 stars
-- less than 35 moves - 1 star
-- 35 moves or more - 0 stars
+- 26 moves or more - 1 star
 
 ### Move counter
 Every two cards opened counts as a one move.
